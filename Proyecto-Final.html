@@ -1,0 +1,184 @@
+<html>
+<head>
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .painterBlock {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        .color {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+        .container {
+            display: grid;
+            width: 200px;;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        }
+                
+        .container > button {
+            border-radius: 5px;
+            height: 30px;
+            width: 30px;
+            padding: 10px;
+            background-color: rgb(255, 255, 255);
+            border: 2px solid rgb(125, 125, 125);
+        }
+    </style>
+</head>
+<body>
+	<div id="root"></div>
+
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    
+    <script type="text/babel">
+		const rootElement = document.getElementById('root');
+
+        function HexBot(){
+			const [status, setStatus] = React.useState('idle');
+			const [colors, setColors] = React.useState([]);
+			const [error, setError] = React.useState(null);
+            
+            let a;
+
+            let grids =[];
+
+            for (let i = 0; i < 100; i++) {
+                grids[i] = {
+                    name: i,
+                    backgroundColor: "#000"
+                };
+                
+            }
+/*
+            React.useEffect(() => {
+                grids = document.getElementById("paleta").style
+            
+            })
+      */
+            function brushColor (e) {
+                a = e.target.style.backgroundColor
+            }
+
+            function setBackGround(e) {
+                e.target.style.background = a;
+            }
+
+            function PrintPaint(){
+                let matrix = [];
+                matrix = grids;
+                return(
+                    <ul className= "container">
+                        {matrix.map(item=> {
+                            return(
+                                <button
+                                    style={{backgroundColor: item.value}}
+                                >
+                                </button>
+                            )
+                        })}                        
+                    </ul>
+                )
+            }
+
+            function resetColor(e){
+                document.getElementById("p")
+            }
+
+            function getAListOfColors() {
+                setStatus('loading');
+                fetch('http://api.noopschallenge.com/hexbot?count=10').then(
+                    (response) => {
+                        if(!response.ok) {
+                            throw new Error(`Network response was not ok, status code: ${response.status}`);
+                        }
+                        return response.json();
+                    }
+                ).then(
+                    data => {
+                        setStatus('resolved');
+                        setColors(data.colors);
+                    }
+                ).catch(
+                    error => {
+                        setStatus('rejected');
+                        setError(error.message);
+                        console.error('There has been a problem with your fetch operation;', error)
+                    }
+                );
+            }
+
+            if(status === 'rejected') {
+                return (
+                    <div className="flex flex-col p-5 bg-gray-200">
+                        <p className="font-bold text-3xl mb-5">
+                            Oh no! something bad just happened: {error}
+                        </p>
+                        <button
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mb-5 rounded"
+                            onClick={() => location.reload()}
+                        >
+                            Try reloading the page
+                        </button>
+                    </div>
+                );
+            }
+			return(
+                <div className="Main" style={{ backgroundColor: 'white' }}>
+                    <div className= "containerMain">
+                        <button 
+                            className="font-bold py-2 px-4 mb-5 rounded"
+                            style={{backgroundColor: '#5ABCF3'}}
+                            onClick={getAListOfColors}
+                        >
+                            New game
+                        </button>
+                        <div className="colorPalette">
+                            <div>
+                                {colors.map(item => {
+                                    return(
+                                        <button 
+                                            key={item.value}
+                                            className="font-bold py-4 px-4 mb-5 rounded border"
+                                            style={{backgroundColor: item.value}}
+                                            onClick={brushColor}
+                                        >                     
+                                        </button>
+                                    )
+                                })}
+                            </div>              
+                        </div>
+                    </div>
+                    <ul className= "container">
+                        {grids.map(item=> {
+                            return(
+                                <button
+                                    id="paleta"
+                                    draggable="true"
+                                    onDragStart={setBackGround}
+                                    onDragOver={setBackGround}
+                                ></button>
+                            )
+                        })
+                        }                        
+                    </ul>
+                    <button
+                            className="font-bold py-2 px-4 mb-5 rounded"
+                            onClick={PrintPaint}
+                            style={{backgroundColor: '#5ABCF3'}}
+                        >Guardar</button>
+                    <PrintPaint />
+				</div>
+			)
+        }
+		ReactDOM.render(<HexBot />, rootElement);
+    </script>
+</body>
+</html>
