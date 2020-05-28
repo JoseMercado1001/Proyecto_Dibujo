@@ -21,12 +21,11 @@
         }
                 
         .container > button {
-            border-radius: 5px;
             height: 30px;
             width: 30px;
             padding: 10px;
             background-color: rgb(255, 255, 255);
-            border: 2px solid rgb(125, 125, 125);
+            border: 0.5px solid rgb(125, 125, 125);
         }
     </style>
 </head>
@@ -62,7 +61,9 @@
                 grids = document.getElementById("paleta").style
             
             })
-      */
+      */    
+            
+            
             function brushColor (e) {
                 a = e.target.style.backgroundColor
             }
@@ -72,19 +73,13 @@
             }
 
             function PrintPaint(){
-                let matrix = [];
-                matrix = grids;
+                let elem = document.querySelector('.container');
+                let copy = document.querySelector('pastePlace');
+                let clone = elem.cloneNode(true);
+                clone.id = 'container2';
+                let paste = elem.after(clone);
                 return(
-                    <ul className= "container">
-                        {matrix.map(item=> {
-                            return(
-                                <button
-                                    style={{backgroundColor: item.value}}
-                                >
-                                </button>
-                            )
-                        })}                        
-                    </ul>
+                    paste
                 )
             }
 
@@ -140,6 +135,12 @@
                         >
                             New game
                         </button>
+                        <button
+                            className="font-bold py-2 px-4 mb-5 rounded"
+                            onClick={PrintPaint}
+                            style={{backgroundColor: '#5ABCF3'}}
+                        >Guardar
+                        </button>
                         <div className="colorPalette">
                             <div>
                                 {colors.map(item => {
@@ -160,21 +161,17 @@
                         {grids.map(item=> {
                             return(
                                 <button
+                                    key={item.value}
                                     id="paleta"
                                     draggable="true"
-                                    onDragStart={setBackGround}
+                                    onClick={setBackGround}
                                     onDragOver={setBackGround}
                                 ></button>
                             )
                         })
                         }                        
                     </ul>
-                    <button
-                            className="font-bold py-2 px-4 mb-5 rounded"
-                            onClick={PrintPaint}
-                            style={{backgroundColor: '#5ABCF3'}}
-                        >Guardar</button>
-                    <PrintPaint />
+                    
 				</div>
 			)
         }
