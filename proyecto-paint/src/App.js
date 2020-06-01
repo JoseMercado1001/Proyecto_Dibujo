@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import Paint  from './Paint';
+import GetAListOfColors from './components/GetAListOfColors/GetAListOfColors'
+//import Paint  from './components/Paint/Paint';
 
 function App() {
- const [colors, setColors] = React.useState([]);
- /* const [status, setStatus] = React.useState('idle');
-  
+  const [colors, setColors] = React.useState([]);
+  const [status, setStatus] = React.useState('idle');
   const [error, setError] = React.useState(null);
-  */      
-  let a;
+      
+  let a = [];
 
   let elem = document.querySelector('.container');
 
@@ -47,9 +47,32 @@ function App() {
     //)
   //}
 
+  function Paint() {
+    return(
+    <div className="colorPalette">
+      {colors.map(item => {
+        return(
+          <button 
+            key={item.value}
+            className="colorButton"
+            style={{backgroundColor: item.value}}
+            onClick= {brushColor(item.value)}
+          >                   
+          </button>
+        )
+      })}            
+    </div>
+    )
+  };
+
+  function brushColor(e, f){
+    a = e.background;
+    console.log(a);
+  }
+
   function setBackGround(e){
     e.target.style.background = a;
-   }
+  }
 
   function PrintPaint(){
     //console.log(grids)
@@ -72,7 +95,7 @@ function App() {
       paste
     )
   }
-  window.onload=Paint();
+  //window.onload=Paint();
   function resetPalette(){
     /*console.log('container')
     /*if(document.querySelector('.container') != null){
@@ -85,7 +108,7 @@ function App() {
       elem
     )*/
   }
-
+/*
   function getAListOfColors(){
     setStatus('loading');
     fetch('http://api.noopschallenge.com/hexbot?count=10').then(
@@ -107,24 +130,8 @@ function App() {
         console.error('There has been a problem with your fetch operation;', error)
       }
     );
-  }
-
-    if(status === 'rejected') {
-      return (
-        <div className="flex flex-col p-5 bg-gray-200">
-          <p className="font-bold text-3xl mb-5">
-            Oh no! something bad just happened: {error}
-          </p>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mb-5 rounded"
-            onClick={() => location.reload()}
-          >
-              Try reloading the page
-          </button>
-        </div>
-      );
-    }
-  window.onload=();
+  }*/
+  window.onload=GetAListOfColors;
 return(
   <div className="Main" style={{ backgroundColor: 'grey' }} >
     
@@ -133,7 +140,7 @@ return(
         className="settingButton"
         id="newPalette"
         style={{backgroundColor: '#5ABCF3'}}
-        onClick= {Paint}
+        onClick= {GetAListOfColors}
         //onClick={Gridiando}
       >
       New palette
