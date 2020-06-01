@@ -1,0 +1,114 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Main {
+  display: flex;
+  flex-flow: column;
+
+}
+
+.containerMain{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-evenly;
+  background-color: #00a0cc;
+  height: 50px;
+  align-items: center;
+}
+
+.paintContainer{
+  display: flex;
+  flex-flow: row-reverse;
+  justify-content: space-evenly;
+}
+
+.painterBlock {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.color {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+}
+.container {
+  display: grid;
+  width: 300px;;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+#containerPrint {
+  display: grid;
+  width: 300px;;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+      
+.container > button {
+  height: 30px;
+  width: 30px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+  border: 0.5px solid rgb(125, 125, 125);
+}
+
+#containerPrint > button {
+  height: 30px;
+  width: 30px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+  border: 0.5px solid rgb(125, 125, 125);
+}
+
+.settingButton {
+  font-weight: bold;
+  height: 40px;
+  width: 100px;
+  border: #282c34;
+  border-radius: 4px;
+}
+
+.colorPalette{
+  display: flex;
+  flex-flow: row;
+}
+
+.colorButton{
+  font-weight: bold;
+  height: 30px;
+  width: 30px;
+  border-radius: 4px;
+  border-color: transparent;
+}

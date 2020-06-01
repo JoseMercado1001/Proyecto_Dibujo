@@ -73,8 +73,13 @@
             }
 
             function PrintPaint(){
+                console.log(document.getElementById('container2'));
+                if(document.getElementById('container2') != null){
+                    let deleteObj = document.getElementById('container2');
+                    deleteObj.remove();
+                }
                 let elem = document.querySelector('.container');
-                let copy = document.querySelector('pastePlace');
+                //let copy = document.querySelector('pastePlace');
                 let clone = elem.cloneNode(true);
                 clone.id = 'container2';
                 let paste = elem.after(clone);
