@@ -1,84 +1,25 @@
-import React, {useState} from 'react';
-//import PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './Paint.css';
-import GetAListOfColors from '../GetAListOfColors/GetAListOfColors';
 
-function Paint(_) {
-  const { colors, color } = useState(GetAListOfColors);
+let newColors = this.props.colors;
 
-  const rows = 10;
-  const cols = 10;
-
-  const initGrid = [];
-  for (var i = 0; i < rows; i++) {
-    initGrid[i] = [];
-    for (var j = 0; j < cols; j++) {
-      initGrid[i][j] = colors[0];
-    }
-  }
-
-  const [grid, setGrid] = useState(initGrid);
-
-  const updateGrid = (i, j) => {
-    if (grid[i][j].value === color.value) {
-      return;
-    }
-    grid[i][j] = color;
-    setGrid([...grid]);
-  };
-
-  const updateGridWithMouse = (e, i, j) => {
-    if (e.buttons === 1) {
-      updateGrid(i, j);
-    }
-  };
-
-  const resetBtn = () => {
-    return (
-      <div className="column">
-        <button onClick={() => setGrid(initGrid)}>Reset</button>
+const Paint = () => (
+      <div>
+        <div className="colorPalette">
+          {newColors.map(item => {
+            return(
+              <button 
+                key={item.value}
+                className="colorButton"
+                style={{backgroundColor: item.value}}
+                onClick={this.props.brushColor}
+              >                   
+              </button>
+            )
+          })}            
+        </div>
       </div>
-    );
-  };
-
-  const drawTableCell = (r_i, c_i) => {
-    return (
-      <td
-        key={c_i}
-        className="painterBlock"
-        onClick={() => updateGrid(r_i, c_i)}
-        onMouseMove={e => updateGridWithMouse(e, r_i, c_i)}
-        style={{
-          backgroundColor: grid[r_i][c_i].value
-        }}
-      />
-    );
-  };
-
-  const drawTableRows = (row, r_i) => {
-    return (
-      <tr key={r_i}>{row.map((col, c_i) => { return drawTableCell(r_i, c_i)})}</tr>
-    );
-  };
-
-  const drawGrid = () => {
-    return (
-      <div className="column">
-        <table>
-          <tbody>
-          {grid.map((row, r_i) => { return drawTableRows(row, r_i)})}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-
-  return (
-    <React.Fragment>
-      {drawGrid()}
-      {resetBtn()}
-    </React.Fragment>
-  );
-}
+);
 
 export default Paint;

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import GetAListOfColors from './components/GetAListOfColors/GetAListOfColors'
-//import Paint  from './components/Paint/Paint';
+import Paint  from './components/Paint/Paint';
 
 function App() {
   const [colors, setColors] = React.useState([]);
@@ -46,7 +46,7 @@ function App() {
     </div>*/
     //)
   //}
-
+/*
   function Paint() {
     return(
     <div className="colorPalette">
@@ -56,14 +56,14 @@ function App() {
             key={item.value}
             className="colorButton"
             style={{backgroundColor: item.value}}
-            onClick= {brushColor(item.value)}
+            onClick= {brushColor}
           >                   
           </button>
         )
       })}            
     </div>
     )
-  };
+  };*/
 
   function brushColor(e, f){
     a = e.background;
@@ -158,7 +158,10 @@ return(
       >Reset
       </button>
       <div className="colorPalette">
-        <Paint />
+        <Paint 
+          colors={colors}
+          brushColor={brushColor}
+          />
       </div>
     </div>
     <div className="paintContainer">
