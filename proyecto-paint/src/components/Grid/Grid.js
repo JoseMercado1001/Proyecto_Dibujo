@@ -6,7 +6,7 @@ function Grid(props){
   let grids =[];
   let subGrids = [];
   for (let i = 0; i < 100; i++){
-  grids[i] = <button key={i} style={{backgroundColor: "rgb(255,255,255)"}}
+  grids[i] = <button className="gridButton" key={i} style={{backgroundColor: "rgb(255,255,255)"}}
               draggable="true"
               onClick={props.setBackGround}
               onDragOver={props.setBackGround}

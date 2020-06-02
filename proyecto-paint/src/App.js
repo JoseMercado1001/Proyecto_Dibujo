@@ -7,36 +7,17 @@ function App() {
   const [colors, setColors] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
-      
-  let a;
+  
+  let a
 
   let elem = document.querySelector('.container');
   function brushColor(e){
-    a = e.target.style.background;
-    console.log(a);
+    a = e.target.style.backgroundColor;
   }
 
   function setBackGround(e){
     e.target.style.background = a;
   }
-
-  function Paint() {
-    return(
-    <div className="colorPalette">
-      {colors.map(item => {
-        return(
-          <button 
-            key={item.value}
-            className="colorButton"
-            style={{backgroundColor: item.value}}
-            onClick= {brushColor}
-          >                   
-          </button>
-        )
-      })}            
-    </div>
-    )
-  };
 
   function PrintPaint(){
     //console.log(grids)
@@ -63,16 +44,12 @@ function App() {
   window.onload=GetAListOfColors;
   
   function resetPalette(){
-    /*console.log('container')
-    /*if(document.querySelector('.container') != null){
-      let removeObj = document.querySelector('.container');
-      removeObj.remove();
+    let canvas = []
+    for (let i = 0; i < 100; i++) {
+      canvas[i] = document.getElementsByTagName('.gridButton')[i]
+      
     }
-    let subObj = document.getElementsByClassName('container')
-    //let resetObj = grids
-    return(
-      elem
-    )*/
+    canvas.setAttribute('style', '{background: #FFF}')
   }
   
 
