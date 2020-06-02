@@ -1,59 +1,25 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-//import GetAListOfColors from './components/GetAListOfColors/GetAListOfColors'
 import Paint  from './components/Paint/Paint';
+import Grid from './components/Grid/Grid';
 
 function App() {
-  const [colors, setColors] = React.useState([]);
-  const [status, setStatus] = React.useState('idle');
-  const [error, setError] = React.useState(null);
+  const [colors, setColors] = useState([]);
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState(null);
       
-  let a = [];
+  let a;
 
   let elem = document.querySelector('.container');
   function brushColor(e){
-    a = e.background;
+    a = e.target.style.background;
     console.log(a);
   }
 
   function setBackGround(e){
     e.target.style.background = a;
   }
-  //function Gridiando(){
-    let grids =[];
-    let subGrids = [];
-    for (let i = 0; i < 100; i++){
-    grids[i] = <button key={i} style={{backgroundColor: "rgb(255,255,255)"}}
-    draggable="true"
-    onClick={setBackGround}
-    onDragOver={setBackGround}
-    ></button>;
-    }
-    for (let i = 0; i < 100; i++){
-      subGrids[i] = <button key={i} style={{backgroundColor: "rgb(255,255,255)"}}
-                    ></button>;
-    }
-    //()();
-    //return(
-      /*<div className="paintContainer">
-      <ul className= "container">
-        {grids.map(item=> {
-          return(
-            item
-          )
-        })}
-      </ul>
-      <ul id= "containerPrint">
-        {subGrids.map(item=> {
-          return(
-            item
-          )
-        })}
-      </ul>
-    </div>*/
-    //)
-  //}
-/*
+
   function Paint() {
     return(
     <div className="colorPalette">
@@ -70,9 +36,7 @@ function App() {
       })}            
     </div>
     )
-  };*/
-
- 
+  };
 
   function PrintPaint(){
     //console.log(grids)
@@ -95,7 +59,9 @@ function App() {
       paste
     )
   }
-  //window.onload=Paint();
+
+  window.onload=GetAListOfColors;
+  
   function resetPalette(){
     /*console.log('container')
     /*if(document.querySelector('.container') != null){
@@ -108,30 +74,7 @@ function App() {
       elem
     )*/
   }
-
-  useEffect(() => {
-    setStatus('loading');
-    fetch('http://api.noopschallenge.com/hexbot?count=10').then(
-      (response) => {
-        if(!response.ok) {
-          throw new Error(`Network response was not ok, status code: ${response.status}`);
-        }
-        return response.json();
-      }
-    ).then(
-      data => {
-        setStatus('resolved');
-        setColors(data.colors);
-      }
-    ).catch(
-      error => {
-        setStatus('rejected');
-        setError(error.message);
-        console.error('There has been a problem with your fetch operation;', error)
-      }
-    );
   
-  }, []);
 
   
   function GetAListOfColors(){
@@ -190,22 +133,9 @@ return(
           />
       </div>
     </div>
-    <div className="paintContainer">
-      <ul className= "container">
-        {grids.map(item=> {
-          return(
-            item
-          )
-        })}
-      </ul>
-      <ul id= "containerPrint">
-        {subGrids.map(item=> {
-          return(
-            item
-          )
-        })}
-      </ul>
-    </div>
+    <Grid 
+      setBackGround={setBackGround}
+      />
   </div>
 )
 }
