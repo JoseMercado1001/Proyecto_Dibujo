@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Paint.css';
 
-let newColors = this.props.colors;
 
-const Paint = () => (
+
+const Paint = (props) => (
+  //let newColors = this.props.colors;
       <div>
         <div className="colorPalette">
-          {newColors.map(item => {
+          {props.colors.map(item => {
+            console.log(props.colors);
             return(
               <button 
                 key={item.value}
                 className="colorButton"
                 style={{backgroundColor: item.value}}
-                onClick={this.props.brushColor}
+                onClick={props.brushColor}
               >                   
               </button>
             )

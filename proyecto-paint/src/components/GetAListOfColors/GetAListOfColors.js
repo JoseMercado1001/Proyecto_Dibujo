@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GetAListOfColors.css';
 
-function GetAListOfColors(){
+function GetAListOfColors(props){
   /*const [colors, setColors] = React.useState([]);
   const [status, setStatus] = React.useState('idle');
   const [error, setError] = React.useState(null);
   */
-  this.props.setStatus('loading');
+  props('loading');
   fetch('http://api.noopschallenge.com/hexbot?count=10').then(
     (response) => {
       if(!response.ok) {
@@ -17,13 +17,13 @@ function GetAListOfColors(){
     }
   ).then(
     data => {
-      this.props.setStatus('resolved');
-      this.props.setColors(data.colors);
+      props.setStatus('resolved');
+      props.setColors(data.colors);
     }
   ).catch(
     error => {
-      this.props.setStatus('rejected');
-      this.props.setError(error.message);
+      props.setStatus('rejected');
+      props.setError(error.message);
       console.error('There has been a problem with your fetch operation;', error)
     }
   );

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import './App.css';
-import GetAListOfColors from './components/GetAListOfColors/GetAListOfColors'
+//import GetAListOfColors from './components/GetAListOfColors/GetAListOfColors'
 import Paint  from './components/Paint/Paint';
 
 function App() {
@@ -11,7 +11,14 @@ function App() {
   let a = [];
 
   let elem = document.querySelector('.container');
+  function brushColor(e){
+    a = e.background;
+    console.log(a);
+  }
 
+  function setBackGround(e){
+    e.target.style.background = a;
+  }
   //function Gridiando(){
     let grids =[];
     let subGrids = [];
@@ -65,14 +72,7 @@ function App() {
     )
   };*/
 
-  function brushColor(e, f){
-    a = e.background;
-    console.log(a);
-  }
-
-  function setBackGround(e){
-    e.target.style.background = a;
-  }
+ 
 
   function PrintPaint(){
     //console.log(grids)
@@ -108,8 +108,8 @@ function App() {
       elem
     )*/
   }
-/*
-  function getAListOfColors(){
+
+  useEffect(() => {
     setStatus('loading');
     fetch('http://api.noopschallenge.com/hexbot?count=10').then(
       (response) => {
@@ -130,8 +130,34 @@ function App() {
         console.error('There has been a problem with your fetch operation;', error)
       }
     );
-  }*/
-  window.onload=GetAListOfColors;
+  
+  }, []);
+
+  
+  function GetAListOfColors(){
+    setStatus('loading');
+    fetch('http://api.noopschallenge.com/hexbot?count=10').then(
+      (response) => {
+        if(!response.ok) {
+          throw new Error(`Network response was not ok, status code: ${response.status}`);
+        }
+        return response.json();
+      }
+    ).then(
+      data => {
+        setStatus('resolved');
+        setColors(data.colors);
+      }
+    ).catch(
+      error => {
+        setStatus('rejected');
+        setError(error.message);
+        console.error('There has been a problem with your fetch operation;', error)
+      }
+    );
+  }
+
+
 return(
   <div className="Main" style={{ backgroundColor: 'grey' }} >
     
