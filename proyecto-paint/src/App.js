@@ -11,27 +11,27 @@ function App() {
   let a
 
   let elem = document.querySelector('.container');
+  
   function brushColor(e){
     a = e.target.style.backgroundColor;
   }
 
   function setBackGround(e){
-    e.target.style.background = a;
+    e.target.style.backgroundColor = a;
+    const onChange = event =>{
+      localStorage.setItem(event.target.value)
+    }
   }
 
   function PrintPaint(){
-    //console.log(grids)
-    //console.log(document.getElementById('container2'));
     if(document.getElementById('container2') != null){
       let deleteObj = document.getElementById('container2');
       deleteObj.remove();
     }
-    //let contObj = document.getElementById('paintContainer');
     if(document.getElementById('containerPrint') != null){
       let removeObj = document.getElementById('containerPrint');
       removeObj.remove();
-    }
-    //console.log(document.getElementById('newPalette').onclick)    
+    } 
     let clone = elem.cloneNode(true);
     clone.id = 'container2';
     clone.removeAttribute("draggable");
@@ -44,15 +44,18 @@ function App() {
   window.onload=GetAListOfColors;
   
   function resetPalette(){
-    let canvas = []
+    let canvas = [];
+    //for (let i = 0; i < 100; i++) {
+      canvas = document.querySelectorAll('.gridButton')
+    //}
     for (let i = 0; i < 100; i++) {
-      canvas[i] = document.getElementsByTagName('.gridButton')[i]
-      
+      canvas[i].setAttribute("style", "background: #FFF")
     }
-    canvas.setAttribute('style', '{background: #FFF}')
   }
   
-
+  const onChange = event =>{
+    localStorage.setItem(event.target.value)
+  }
   
   function GetAListOfColors(){
     setStatus('loading');

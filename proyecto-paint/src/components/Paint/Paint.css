@@ -1,1 +1,12 @@
-.Paint {}
+.colorPalette{
+    display: flex;
+    flex-flow: row;
+}
+
+.colorButton{
+    font-weight: bold;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    border-color: transparent;
+}
