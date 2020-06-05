@@ -19,20 +19,20 @@ function Grid(props){
   }
   return(
   <div className="paintContainer">
-      <ul className= "container">
+      <p className= "container">
         {grids.map(item=> {
           return(
             item
           )
         })}
-      </ul>
-      <ul id= "containerPrint">
+      </p>
+      <p id= "containerPrint">
         {subGrids.map(item=> {
           return(
             item
           )
         })}
-      </ul>
+      </p>
     </div>
   )
 };
