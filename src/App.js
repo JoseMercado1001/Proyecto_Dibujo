@@ -32,7 +32,7 @@ function App() {
   
   function GetAListOfColors(){
     setStatus('loading');
-    fetch('http://api.noopschallenge.com/hexbot?count=10').then(
+    fetch('https://api.noopschallenge.com/hexbot?count=10').then(
       (response) => {
         if(!response.ok) {
           throw new Error(`Network response was not ok, status code: ${response.status}`);
