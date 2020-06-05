@@ -1,6 +1,7 @@
 .colorPalette{
     display: flex;
     flex-flow: row;
+    margin: 1em;
 }
 
 .colorButton{

@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import Paint  from './components/Paint/Paint';
 import Grid from './components/Grid/Grid';
+import PaintButton from './components/PaintButton/PaintButton';
 
 function App() {
   const [colors, setColors] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
+  const [value, setValue] = useState(
+    localStorage.getItem('backupGridSave') || ''
+  );
+
+  useEffect(() => {
+    localStorage.setItem('backupGridSave', Grid);}, [Grid]);
   
+
   let a
 
-  let elem = document.querySelector('.container');
+  let gridSave
   
   function brushColor(e){
     a = e.target.style.backgroundColor;
@@ -18,44 +26,9 @@ function App() {
 
   function setBackGround(e){
     e.target.style.backgroundColor = a;
-    const onChange = event =>{
-      localStorage.setItem(event.target.value)
-    }
   }
 
-  function PrintPaint(){
-    if(document.getElementById('container2') != null){
-      let deleteObj = document.getElementById('container2');
-      deleteObj.remove();
-    }
-    if(document.getElementById('containerPrint') != null){
-      let removeObj = document.getElementById('containerPrint');
-      removeObj.remove();
-    } 
-    let clone = elem.cloneNode(true);
-    clone.id = 'container2';
-    clone.removeAttribute("draggable");
-    let paste = elem.after(clone);
-    return(
-      paste
-    )
-  }
-
-  window.onload=GetAListOfColors;
-  
-  function resetPalette(){
-    let canvas = [];
-    //for (let i = 0; i < 100; i++) {
-      canvas = document.querySelectorAll('.gridButton')
-    //}
-    for (let i = 0; i < 100; i++) {
-      canvas[i].setAttribute("style", "background: #FFF")
-    }
-  }
-  
-  const onChange = event =>{
-    localStorage.setItem(event.target.value)
-  }
+  const saveCanvas = event => setValue(event.target.value);
   
   function GetAListOfColors(){
     setStatus('loading');
@@ -80,41 +53,38 @@ function App() {
     );
   }
 
+  if(status === 'rejected') {
+    return (
+      <div className="flex flex-col p-5 bg-gray-200">
+        <p className="font-bold text-3xl mb-5">
+          Oh no! something bad just happened: {error}
+        </p>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mb-5 rounded"
+          onClick={() => window.reload()}
+        >
+            Try reloading the page
+        </button>
+      </div>
+    );
+  }
+
+  window.onload = GetAListOfColors;
 
 return(
   <div className="Main" style={{ backgroundColor: 'grey' }} >
-    
     <div className= "containerMain">
-      <button 
-        className="settingButton"
-        id="newPalette"
-        style={{backgroundColor: '#5ABCF3'}}
-        onClick= {GetAListOfColors}
-        //onClick={Gridiando}
-      >
-      New palette
-      </button>
-      <button
-          className="settingButton"
-          onClick={PrintPaint}
-          style={{backgroundColor: '#5ABCF3'}}
-      >Guardar
-      </button>
-      <button
-          className="settingButton"
-          onClick={resetPalette}
-          style={{backgroundColor: '#5ABCF3'}}
-      >Reset
-      </button>
-      <div className="colorPalette">
-        <Paint 
-          colors={colors}
-          brushColor={brushColor}
+      <PaintButton 
+        GetAListOfColors={GetAListOfColors}
           />
-      </div>
+      <Paint 
+        colors={colors}
+        brushColor={brushColor}
+        />
     </div>
     <Grid 
       setBackGround={setBackGround}
+      saveCanvas={saveCanvas}
       />
   </div>
 )

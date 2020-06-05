@@ -1,6 +1,6 @@
 .paintContainer{
     display: flex;
-    flex-flow: row-reverse;
+    flex-flow: row-reverse wrap;
     justify-content: space-evenly;
 }
 

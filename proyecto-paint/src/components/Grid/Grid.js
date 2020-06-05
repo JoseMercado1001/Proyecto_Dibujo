@@ -10,6 +10,7 @@ function Grid(props){
               draggable="true"
               onClick={props.setBackGround}
               onDragOver={props.setBackGround}
+              onChange={props.saveCanvas}
               ></button>;
   }
   for (let i = 0; i < 100; i++){
