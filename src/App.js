@@ -72,7 +72,7 @@ function App() {
   window.onload = GetAListOfColors;
 
 return(
-  <div className="Main" style={{ backgroundColor: 'grey' }} >
+  <div className="Main">
     <div className= "containerMain">
       <PaintButton 
         GetAListOfColors={GetAListOfColors}

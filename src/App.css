@@ -5,7 +5,7 @@
 .Main {
   display: flex;
   flex-flow: column;
-
+  background-color: gray;
 }
 
 .containerMain{
